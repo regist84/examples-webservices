@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xsi:schemaLocation="
+            http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd 
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+            http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    
+    <!-- Load CXF modules from cxf.jar-->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+    <bean id="usersDao" class="example.users.webservice.persistence.UsersMockDao" />
+    <bean id="usersService" class="example.users.webservice.server.UsersServiceImpl">
+        <property name="usersDao" ref="usersDao" />
+        
+    </bean>
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+    
+    <jaxrs:server id="serverService" address="/usersService">
+        <jaxrs:serviceBeans>
+            <ref bean="usersService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+      		   
+    </jaxrs:server>
+    <!--<jaxrs:endpoint id="usersService" 
+                    publishedEndpointUrl="http://localhost:8080/usersService"
+                    implementor="example.users.webservice.server.Endpoit"
+                    address="/usersservice" >
+    </jaxrs:endpoint>
+     
+    <bean id="service" class="example.users.webservice.server.UsersServiceImpl"/>
+    <jaxrs:server id="userservice" address="/users">
+        <jaxrs:serviceBeans>
+            <ref bean="service" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>-->
+
+    <!-- SOAP service-->
+    <!-- <jaxws:endpoint id="usersService" implementor="#service" address="/usersservice" /> -->
+    <!-- Rest service-->
+    <!--<jaxrs:endpoint id="usersService" implementor="#service" address="/userservice" />-->
+
+    <!--<jaxrs:extensionMappings> 
+        <entry key="json" value="application/json" /> 
+    </jaxrs:extensionMappings>-->
+    
+    <!-- <jaxrs:server id="usersService"
+                  address="/json">
+        <jaxrs:serviceBeans>
+            <ref bean="service"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings> 
+            <entry key="json" value="application/json" /> 
+        </jaxrs:extensionMappings> 
+        <jaxrs:providers>
+            <ref bean="jaxbJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>-->
+    
+    <!-- Webservice message handlers -->
+    <!--<bean id="jaxbJsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider" />-->
+    
+</beans>
