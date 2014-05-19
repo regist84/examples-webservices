@@ -12,7 +12,8 @@ import javax.ws.rs.Produces;
 //webservice interface SEI SOAP
 //@WebService
 @Produces("application/json")
-@Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
+//@Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
+@Consumes({"application/json"})
 public interface IUsersService {
 
     @WebMethod()
@@ -21,7 +22,7 @@ public interface IUsersService {
 //    @Consumes(MediaType.APPLICATION_JSON)
 //    public List<User> getUsers();
     @GET
-    @Path("/usersList/")
+    @Path("/usersList")
     public ResponseUser getUsersList();
     
     @POST
