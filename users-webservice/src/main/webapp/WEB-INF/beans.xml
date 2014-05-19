@@ -23,7 +23,7 @@
             <cxf:logging/>
         </cxf:features>
     </cxf:bus>
-    <bean id="usersDao" class="example.users.webservice.persistence.UsersMockDao" />
+    <bean id="usersDao" class="example.users.webservice.persistence.mock.UsersMockDao" />
     <bean id="usersService" class="example.users.webservice.server.UsersServiceImpl">
         <property name="usersDao" ref="usersDao" />
         

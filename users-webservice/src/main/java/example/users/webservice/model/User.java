@@ -15,7 +15,7 @@ import java.util.Date;
  * @author antonio
  */
 //@XmlRootElement(name = "User")
-public class User implements Serializable {
+public class User{
 
     private String firstName;
     private String lastName;
@@ -65,10 +65,10 @@ public class User implements Serializable {
         this.dateBirth = dateBirth;
     }
     
-//    	@Override
-//	public String toString() {
-//	   return "User [firstName=" + this.firstName + ", lastName=" + this.lastName + ", nickName="
-//		+ nickName + ", dateBirthday=" + df.format(dateBirth) + "]";
-//	}
+    	@Override
+	public String toString() {
+	   return "User [firstName=" + this.firstName + ", lastName=" + this.lastName + ", nickName="
+		+ nickName + ", dateBirthday=" + df.format(dateBirth) + "]";
+	}
 
 }
